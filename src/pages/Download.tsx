@@ -2,16 +2,16 @@ import { Helmet } from "react-helmet-async";
 import { Download, FileText, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const GOOGLE_DRIVE_PDF_URL = "https://drive.google.com/file/d/1QbSQ8gtWaefsH64mnbzdUUYPqb7HErI1/view";
+const GOOGLE_DRIVE_DOWNLOAD_URL = "https://drive.google.com/uc?export=download&id=1QbSQ8gtWaefsH64mnbzdUUYPqb7HErI1";
+
 const DownloadPage = () => {
   const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = "/docs/manifesto.pdf";
-    link.download = "National-Youth-Manifesto-2025.pdf";
-    link.click();
+    window.open(GOOGLE_DRIVE_DOWNLOAD_URL, "_blank");
   };
 
   const handleOpenPDF = () => {
-    window.open("/docs/manifesto.pdf", "_blank");
+    window.open(GOOGLE_DRIVE_PDF_URL, "_blank");
   };
 
   return (
@@ -71,12 +71,13 @@ const DownloadPage = () => {
             </div>
           </div>
 
-          {/* Desktop: Embed PDF */}
+          {/* Desktop: Embed Google Drive PDF */}
           <div className="hidden md:flex flex-1">
             <iframe
-              src="/docs/manifesto.pdf"
+              src="https://drive.google.com/file/d/1QbSQ8gtWaefsH64mnbzdUUYPqb7HErI1/preview"
               className="w-full h-full min-h-[calc(100vh-65px)]"
               title="National Youth Manifesto 2025"
+              allow="autoplay"
             />
           </div>
         </div>
