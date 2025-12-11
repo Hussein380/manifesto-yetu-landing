@@ -1,8 +1,10 @@
 import { QRCodeSVG } from "qrcode.react";
 
 const QRSection = () => {
-  // Google Drive PDF URL
-  const pdfUrl = "https://drive.google.com/file/d/1QbSQ8gtWaefsH64mnbzdUUYPqb7HErI1/view";
+  // Local Booklet PDF URL
+  const pdfUrl = typeof window !== "undefined" 
+    ? `${window.location.origin}/docs/manifesto-yetu-booklet.pdf`
+    : "/docs/manifesto-yetu-booklet.pdf";
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 p-8 lg:p-12">
