@@ -1,28 +1,18 @@
-import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Download, CheckCircle, FileText } from "lucide-react";
+import { Download, FileText, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const DownloadPage = () => {
-  const [downloadStatus, setDownloadStatus] = useState<"pending" | "downloading" | "complete">("pending");
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = "/docs/manifesto.pdf";
+    link.download = "National-Youth-Manifesto-2025.pdf";
+    link.click();
+  };
 
-  useEffect(() => {
-    // Small delay to show the UI before triggering download
-    const timer = setTimeout(() => {
-      setDownloadStatus("downloading");
-      
-      const link = document.createElement("a");
-      link.href = "/docs/manifesto.pdf";
-      link.download = "National-Youth-Manifesto-2025.pdf";
-      link.click();
-
-      // Mark as complete after a brief moment
-      setTimeout(() => {
-        setDownloadStatus("complete");
-      }, 1500);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const handleOpenPDF = () => {
+    window.open("/docs/manifesto.pdf", "_blank");
+  };
 
   return (
     <>
@@ -30,65 +20,64 @@ const DownloadPage = () => {
         <title>Download - National Youth Manifesto 2025</title>
         <meta
           name="description"
-          content="Download your copy of the National Youth Manifesto 2025 - 1st Edition."
+          content="View and download your copy of the National Youth Manifesto 2025 - 1st Edition."
         />
       </Helmet>
 
-      <main className="flex min-h-screen items-center justify-center bg-kenya-gradient p-6">
-        <div className="w-full max-w-md animate-fade-in">
-          <div className="rounded-2xl bg-primary-foreground p-8 shadow-2xl text-center space-y-6">
-            {/* Icon */}
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-              {downloadStatus === "complete" ? (
-                <CheckCircle className="h-10 w-10 text-primary animate-fade-in" />
-              ) : downloadStatus === "downloading" ? (
-                <Download className="h-10 w-10 text-primary animate-bounce" />
-              ) : (
-                <FileText className="h-10 w-10 text-primary" />
-              )}
-            </div>
+      <main className="flex min-h-screen flex-col bg-kenya-gradient">
+        {/* Header */}
+        <header className="flex items-center justify-between p-4 bg-background/80 backdrop-blur-sm border-b border-border">
+          <a href="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+            <span className="font-display text-lg tracking-wide">← MANIFESTO YETU</span>
+          </a>
+          <Button onClick={handleDownload} size="sm" className="gap-2">
+            <Download className="h-4 w-4" />
+            Download PDF
+          </Button>
+        </header>
 
-            {/* Title */}
-            <h1 className="font-display text-3xl tracking-wide text-foreground">
-              {downloadStatus === "complete"
-                ? "DOWNLOAD COMPLETE"
-                : downloadStatus === "downloading"
-                ? "DOWNLOADING..."
-                : "PREPARING DOWNLOAD"}
-            </h1>
-
-            {/* Description */}
-            <p className="text-muted-foreground">
-              {downloadStatus === "complete"
-                ? "Your National Youth Manifesto 2025 has been downloaded successfully."
-                : "Your download will begin automatically. Please wait..."}
-            </p>
-
-            {/* Document Info */}
-            <div className="rounded-lg border border-border bg-muted/50 p-4 text-left">
-              <div className="flex items-center gap-3">
-                <FileText className="h-8 w-8 text-secondary" />
-                <div>
-                  <p className="font-medium text-foreground">National-Youth-Manifesto-2025.pdf</p>
-                  <p className="text-sm text-muted-foreground">1st Edition</p>
-                </div>
+        {/* PDF Viewer */}
+        <div className="flex-1 flex flex-col">
+          {/* Mobile: Show buttons and info */}
+          <div className="md:hidden p-6 space-y-6 animate-fade-in">
+            <div className="text-center space-y-4">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                <FileText className="h-8 w-8 text-primary" />
               </div>
+              <h1 className="font-display text-2xl tracking-wide text-foreground">
+                NATIONAL YOUTH MANIFESTO 2025
+              </h1>
+              <p className="text-muted-foreground text-sm">
+                1st Edition - Your voice, your future
+              </p>
             </div>
 
-            {/* Back Link */}
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
-            >
-              ← Back to Home
-            </a>
+            <div className="space-y-3">
+              <Button onClick={handleOpenPDF} className="w-full gap-2" size="lg">
+                <ExternalLink className="h-5 w-5" />
+                Open PDF
+              </Button>
+              <Button onClick={handleDownload} variant="outline" className="w-full gap-2" size="lg">
+                <Download className="h-5 w-5" />
+                Download PDF
+              </Button>
+            </div>
 
             {/* Kenya Stripe */}
-            <div className="flex h-1 overflow-hidden rounded-full mt-6">
+            <div className="flex h-1 overflow-hidden rounded-full">
               <div className="flex-1 bg-kenya-black" />
               <div className="flex-1 bg-kenya-red" />
               <div className="flex-1 bg-primary" />
             </div>
+          </div>
+
+          {/* Desktop: Embed PDF */}
+          <div className="hidden md:flex flex-1">
+            <iframe
+              src="/docs/manifesto.pdf"
+              className="w-full h-full min-h-[calc(100vh-65px)]"
+              title="National Youth Manifesto 2025"
+            />
           </div>
         </div>
       </main>
