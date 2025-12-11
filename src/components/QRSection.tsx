@@ -32,6 +32,22 @@ const QRSection = () => {
         <p className="text-primary-foreground/80 text-sm lg:text-base max-w-xs">
           Scan this QR code with your phone to download the National Youth Manifesto 2025
         </p>
+        <div className="flex flex-col gap-2 pt-2">
+          <a
+            href={pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90"
+          >
+            Download the Manifesto
+          </a>
+          <a
+            href="/download"
+            className="text-xs text-primary-foreground/80 underline underline-offset-4 hover:text-primary-foreground"
+          >
+            Prefer a preview? View the manifesto online
+          </a>
+        </div>
       </div>
 
       {/* Decorative Kenya Stripe */}
