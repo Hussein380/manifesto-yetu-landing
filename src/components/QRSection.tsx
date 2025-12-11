@@ -1,10 +1,8 @@
 import { QRCodeSVG } from "qrcode.react";
 
 const QRSection = () => {
-  // Get the current origin for the QR code URL
-  const downloadUrl = typeof window !== "undefined" 
-    ? `${window.location.origin}/download` 
-    : "/download";
+  // Google Drive PDF URL
+  const pdfUrl = "https://drive.google.com/file/d/1QbSQ8gtWaefsH64mnbzdUUYPqb7HErI1/view";
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 p-8 lg:p-12">
@@ -13,7 +11,7 @@ const QRSection = () => {
         <div className="absolute -inset-4 rounded-2xl bg-primary-foreground/20 blur-xl" />
         <div className="relative rounded-2xl bg-primary-foreground p-6 shadow-2xl animate-pulse-glow">
           <QRCodeSVG
-            value={downloadUrl}
+            value={pdfUrl}
             size={200}
             level="H"
             includeMargin={false}
