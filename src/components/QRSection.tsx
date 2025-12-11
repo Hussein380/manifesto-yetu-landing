@@ -41,12 +41,6 @@ const QRSection = () => {
           >
             Download the Manifesto
           </a>
-          <a
-            href="/download"
-            className="text-xs text-primary-foreground/80 underline underline-offset-4 hover:text-primary-foreground"
-          >
-            Prefer a preview? View the manifesto online
-          </a>
         </div>
       </div>
 
